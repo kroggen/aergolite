@@ -1,0 +1,58 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
+
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: mac
+      if: ${{ matrix.platform == 'macos-latest' }}
+      run: brew install m4 automake libtool
+
+    - name: install binn
+      run: |
+        cd ..
+        git clone --depth=1 https://github.com/liteserver/binn
+        cd binn
+        make
+        make install
+
+    - name: install secp256k1-vrf
+      run: |
+        cd ..
+        git clone --depth=1 https://github.com/aergoio/secp256k1-vrf
+        cd secp256k1-vrf
+        ./autogen.sh
+        ./configure --disable-benchmark
+        make
+        make install
+
+    - name: install libuv
+      run: |
+        cd ..
+        git clone --depth=1 https://github.com/libuv/libuv
+        cd libuv
+        ./autogen.sh
+        ./configure
+        make
+        make install
+        ldconfig
+
+    - name: compile aergolite
+      run: |
+        make
+        make install
