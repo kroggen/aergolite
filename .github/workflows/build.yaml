@@ -21,7 +21,7 @@ jobs:
 
     - name: mac
       if: ${{ matrix.platform == 'macos-latest' }}
-      run: brew install autotools automake libtool
+      run: brew install automake libtool
 
     - name: install binn
       run: |
