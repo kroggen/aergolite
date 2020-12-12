@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: mac
+    - name: install build tools (mac)
       if: ${{ matrix.platform == 'macos-latest' }}
       run: brew install automake libtool
 
@@ -50,7 +50,10 @@ jobs:
         ./configure
         make
         sudo make install
-        sudo ldconfig
+
+    - name: ldconfig (linux)
+      if: ${{ matrix.platform == 'ubuntu-latest' }}
+      run: sudo ldconfig
 
     - name: compile aergolite
       run: |
