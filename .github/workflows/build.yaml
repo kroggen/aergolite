@@ -11,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        #platform: [ubuntu-latest, macos-latest]
+        platform: [windows-latest]
     runs-on: ${{ matrix.platform }}
 
     if: "!contains(github.event.head_commit.message, 'skip ci')"
@@ -29,7 +30,7 @@ jobs:
         git clone --depth=1 https://github.com/liteserver/binn
         cd binn
         make
-        sudo make install
+        #sudo make install
 
     - name: install secp256k1-vrf
       run: |
@@ -39,7 +40,7 @@ jobs:
         ./autogen.sh
         ./configure --disable-benchmark
         make
-        sudo make install
+        #sudo make install
 
     - name: install libuv
       run: |
@@ -49,7 +50,7 @@ jobs:
         ./autogen.sh
         ./configure
         make
-        sudo make install
+        #sudo make install
 
     - name: ldconfig (linux)
       if: ${{ matrix.platform == 'ubuntu-latest' }}
@@ -58,4 +59,4 @@ jobs:
     - name: compile aergolite
       run: |
         make
-        sudo make install
+        #sudo make install
