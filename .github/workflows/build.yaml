@@ -12,6 +12,10 @@ jobs:
     env:
       CC: gcc
 
+    defaults:
+      run:
+        shell: msys2 {0}
+
     strategy:
       matrix:
         #platform: [ubuntu-latest, macos-latest]
@@ -22,6 +26,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        install: base-devel
 
     - name: install build tools (mac)
       if: ${{ matrix.platform == 'macos-latest' }}
