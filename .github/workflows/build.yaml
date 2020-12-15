@@ -28,7 +28,7 @@ jobs:
       run: brew install automake libtool
 
     - name: install binn
-      shell: bash
+      shell: msys2
       run: |
         cd ..
         git clone --depth=1 https://github.com/liteserver/binn
@@ -37,7 +37,7 @@ jobs:
         #sudo make install
 
     - name: install secp256k1-vrf
-      shell: bash
+      shell: msys2
       run: |
         cd ..
         git clone --depth=1 https://github.com/aergoio/secp256k1-vrf
@@ -48,7 +48,7 @@ jobs:
         #sudo make install
 
     - name: install libuv
-      shell: bash
+      shell: msys2
       run: |
         cd ..
         git clone --depth=1 https://github.com/libuv/libuv
@@ -63,7 +63,7 @@ jobs:
       run: sudo ldconfig
 
     - name: compile aergolite
-      shell: bash
+      shell: msys2
       run: |
         make
         #sudo make install
