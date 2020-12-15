@@ -9,6 +9,9 @@ on:
 jobs:
   build:
 
+    env:
+      CC: gcc
+
     strategy:
       matrix:
         #platform: [ubuntu-latest, macos-latest]
